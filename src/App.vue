@@ -38,12 +38,39 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+      color="#fcb69f"
+      dark
+      src="https://picsum.photos/1920/1080?random"
+      app
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar>
+      <v-app-bar-title>
+        <span>Lista de Tarefas</span>
+      </v-app-bar-title>
 
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -56,7 +83,7 @@
        drawer: null,
        items: [
           { title: 'Tarefas', icon: 'mdi-format-list-checks', to: '/' },
-          { title: 'Sobre', icon: 'mdi-gavel', to: '/about' },
+          { title: 'Sobre', icon: 'mdi-information-outline', to: '/about' },
         ]
        }),
   }
