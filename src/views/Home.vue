@@ -8,14 +8,27 @@
         <v-list-item-group multiple>
         <v-list-item
         @click="doneTask(task.id)"
+        :class="{ 'teal lighten-5' : task.done}"
         >
           <template>
             <v-list-item-action>
               <v-checkbox :input-value="task.done" color="primary"></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{ task.title }}</v-list-item-title>
+              <v-list-item-title
+              :class="{ 'text-decoration-line-through' : task.done }"
+              >
+                {{ task.title }}
+              </v-list-item-title>
             </v-list-item-content>
+            <v-list-item-action>
+              <v-btn 
+              icon
+              @click.stop="deleteTask(task.id)"
+              >
+                <v-icon color="primary">mdi-delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
           </template>
         </v-list-item>
         <v-divider></v-divider>
@@ -41,6 +54,9 @@ export default {
     doneTask(id) {
       let task = this.tasks.filter(task => task.id === id)[0]
       task.done = !task.done
+    },
+    deleteTask(id){
+      this.tasks = this.tasks.filter(task => task.id !== id)
     }
   }
 }
