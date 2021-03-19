@@ -4,6 +4,17 @@
       flat
       class="pt-0"
     >
+      <v-text-field
+        v-model="newTaskTitle"
+        @click:append="addTask()"
+        @keyup.enter="addTask()"
+        class="pa-3"
+        solo
+        label="Adicionar Tarefa"
+        append-icon="mdi-plus-box"
+        hide-details
+        clearable
+      ></v-text-field>
       <div v-for="task in tasks" :key="task.id">
         <v-list-item-group multiple>
         <v-list-item
@@ -42,15 +53,20 @@
 export default {
   name: 'Home',
   data: () => ({
+    newTaskTitle: '',
     tasks: [
-      {
-        id: 1,
-        title: 'Levantar',
-        done: true
-      }
     ]
   }),
   methods : {
+    addTask() {
+      let newTask = {
+        id: Date.now(),
+        title: this.newTaskTitle,
+        done: false,
+      }
+      this.tasks.push(newTask)
+      this.newTaskTitle = ''
+    },
     doneTask(id) {
       let task = this.tasks.filter(task => task.id === id)[0]
       task.done = !task.done
